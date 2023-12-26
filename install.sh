@@ -45,9 +45,10 @@ ExecStart=/usr/local/bin/$SCRIPT
 [Install]
 WantedBy=default.target
 E-O-F
-systemctl --user start mina-discord-bot.timer
-systemctl --user enable mina-discord-bot.timer
-systemctl --user status mina-discord-bot.timer
+
+systemctl --user start mina-discord-bot.service
+systemctl --user enable mina-discord-bot.service
+systemctl --user status mina-discord-bot.service
 
 else
   # add the script to cronjob
