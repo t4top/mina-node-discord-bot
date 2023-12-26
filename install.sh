@@ -51,7 +51,7 @@ E-O-F
 Description=Mina Discord Bot Timer
 
 [Timer]
-OnCalendar=00/0:15
+OnCalendar=*:0/15
 Unit=mina-discord-bot.service
 Persistent=true
 
