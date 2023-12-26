@@ -2,7 +2,7 @@
 
 CURL=/usr/bin/curl
 SCRIPT=discord_bot.sh
-SCRIPT_URL=https://raw.githubusercontent.com/jrwashburn/mina-node-discord-bot/main/$SCRIPT
+SCRIPT_URL=https://raw.githubusercontent.com/t4top/mina-node-discord-bot/main/$SCRIPT
 
 # prompt for webhook url
 while true; do

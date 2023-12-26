@@ -25,7 +25,7 @@ Follow below steps to create a webhook URL.
 Run below command on your Mina node. Enter the webhook URL from step 1 when prompted.
 
 ```bash
-source <(curl -s https://raw.githubusercontent.com/jrwashburn/mina-node-discord-bot/main/install.sh)
+source <(curl -s https://raw.githubusercontent.com/t4top/mina-node-discord-bot/main/install.sh)
 ```
 
 ### Step 3. Check the result on Discord
