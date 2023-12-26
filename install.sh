@@ -2,7 +2,7 @@
 
 CURL=/usr/bin/curl
 SCRIPT=discord_bot.sh
-SCRIPT_URL=https://raw.githubusercontent.com/jrwashburn/mina-node-discord-bot/use-systemd/$SCRIPT
+SCRIPT_URL=https://raw.githubusercontent.com/jrwashburn/mina-node-discord-bot/main/$SCRIPT
 
 # prompt for webhook url
 while true; do
@@ -26,11 +26,11 @@ sed -i "s@ENTER_DISCORD_WEBHOOK_URL_HERE@$WEBHOOK_URL@g" $SCRIPT
 # make the script executable
 chmod +x $SCRIPT
 
-sudo mv $SCRIPT /usr/local/bin/$SCRIPT
-
 read -n1 -r -p "Would you like to run under systemd instead of cron? (y/n) " YESNO
 echo
 if [ $YESNO = "y" ] || [ $YESNO = "Y" ] ; then
+  sudo mv $SCRIPT /usr/local/bin/$SCRIPT
+
   sudo tee /etc/systemd/user/mina-discord-bot.service &>/dev/null << E-O-F
 [Unit]
 Description=Mina Discord Bot Service
@@ -59,10 +59,14 @@ Persistent=true
 WantedBy=default.target
 E-O-F
 
+systemctl --user start mina-discord-bot.timer
+systemctl --user enable mina-discord-bot.timer
+systemctl --user status mina-discord-bot.timer
+
 else
   # add the script to cronjob
-  (crontab -l | grep $PWD/$SCRIPT) || (crontab -l 2>/dev/null; echo "*/15 * * * * /usr/local/bin/$SCRIPT >/dev/null 2>&1") | crontab -
+  (crontab -l | grep $PWD/$SCRIPT) || (crontab -l 2>/dev/null; echo "*/15 * * * * $PWD/$SCRIPT >/dev/null 2>&1") | crontab -
+  # execute the script
+  $PWD/$SCRIPT
 fi
 
-# execute the script
-/usr/local/bin/$SCRIPT
